@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import Header from './Header';
 import Gallery from './Gallery';
 
@@ -7,25 +8,31 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      gifs: [
-        {
-          data: {
-            image_url: "https://media0.giphy.com/media/op67lgNTdh1T2/200_d.gif"
-          }
-        },
-        {
-          data: {
-            image_url: "https://media3.giphy.com/media/14p2g1jzZe2LbG/giphy.gif"
-          }
-        }
-      ]
+      gifs: [],
+      loading: true
     };
+  }
+
+  componentDidMount() {
+    this.performSearch();
+  }
+
+  performSearch = (query = 'cats') => {
+    axios.get(`http://api.giphy.com/v1/gifs/search?q=${query}&limit=24&api_key=${this.props.configs.API_KEY}`)
+      .then(response => {
+        this.setState({
+          gifs: response.data.data,
+          loading: false
+        });
+      })
+      .catch(error => {
+        console.log('Error fetching and parsing data', error);
+      });    
   }
 
   render() {
     return (
       <div className="container">
-        {this.props.configs.API_KEY}
         <Header/>
         <Gallery gifs={this.state.gifs}/>
       </div>

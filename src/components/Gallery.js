@@ -3,12 +3,19 @@ import GalleryItem from './GalleryItem';
 import NotFound from './NotFound';
 
 const Gallery = (props) => {
+
+    let gifs;
+    if (props.gifs.length) {
+        gifs = props.gifs.map(g => <GalleryItem gif={g}/>);
+     } else {
+        gifs = <NotFound/>
+     }
+
     return (
         <div className="photo-container">
             <h2>Results</h2>
             <ul>
-                { props.gifs.map(g => <GalleryItem gif={g}/>) }
-                <NotFound/>
+                {gifs}
             </ul>
         </div>
     );
