@@ -6,7 +6,7 @@ const Gallery = (props) => {
 
     let gifs;
     if (props.gifs.length) {
-        gifs = props.gifs.map(g => <GalleryItem gif={g}/>);
+        gifs = props.gifs.map(g => <GalleryItem key={g.id} gif={g}/>);
      } else {
         gifs = <NotFound/>
      }

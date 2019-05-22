@@ -14,7 +14,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.performSearch();
+    // this.performSearch();
   }
 
   performSearch = (query = 'cats') => {
@@ -33,7 +33,7 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <Header/>
+        <Header onSearch={this.performSearch}/>
         <Gallery gifs={this.state.gifs}/>
       </div>
     );

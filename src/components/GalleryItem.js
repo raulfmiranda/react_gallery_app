@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const Nav = (props) => {
+const GalleryItem = (props) => {
     return (
         <li>
             <img src={props.gif.images.fixed_height.url} alt={props.gif.title} />
@@ -9,4 +9,4 @@ const Nav = (props) => {
     );
 }
 
-export default Nav;
+export default GalleryItem;
