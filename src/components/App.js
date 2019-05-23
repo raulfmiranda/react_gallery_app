@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {
+  BrowserRouter,
+  Route,
+  Switch
+} from 'react-router-dom';
+
+// App componentes
 import Header from './Header';
 import Gallery from './Gallery';
+import Error404 from './Error404';
 
 class App extends Component {
 
@@ -9,15 +17,17 @@ class App extends Component {
     super();
     this.state = {
       gifs: [],
-      loading: true
+      loading: false
     };
   }
 
-  componentDidMount() {
-    // this.performSearch();
-  }
-
   performSearch = (query = 'cats') => {
+    console.log('my query:' + query);
+
+    this.setState({
+      loading: true
+    });
+
     axios.get(`http://api.giphy.com/v1/gifs/search?q=${query}&limit=24&api_key=${this.props.configs.API_KEY}`)
       .then(response => {
         this.setState({
@@ -27,15 +37,29 @@ class App extends Component {
       })
       .catch(error => {
         console.log('Error fetching and parsing data', error);
-      });    
+      });
   }
 
   render() {
     return (
-      <div className="container">
-        <Header onSearch={this.performSearch}/>
-        <Gallery gifs={this.state.gifs}/>
-      </div>
+      <BrowserRouter>
+        <div className="container">
+          <Header onSearch={this.performSearch}/>
+
+          {
+            (this.state.loading)
+              ? <h2>Loading...</h2>
+              :
+              <Switch>
+                  <Route exact path="/" component={() => (<Gallery gifs={this.state.gifs}/>)} />
+                  <Route exact path="/cats" component={() => (<Gallery gifs={this.state.gifs}/>)} />
+                  <Route exact path="/dogs" component={() => (<Gallery gifs={this.state.gifs}/>)} />
+                  <Route exact path="/computers" component={() => (<Gallery gifs={this.state.gifs}/>)} />
+                  <Route component={Error404} />
+              </Switch>
+          }
+        </div>
+      </BrowserRouter>
     );
   }
 }

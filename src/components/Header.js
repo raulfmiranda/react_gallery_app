@@ -1,12 +1,12 @@
 import React from 'react';
 import SearchBar from './SearchBar';
-// import Nav from './Nav';
+import Nav from './Nav';
 
 const Header = (props) => {
     return (
         <React.Fragment>
             <SearchBar onSearch={props.onSearch}/>
-            {/* <Nav/> */}
+            <Nav onSearch={props.onSearch}/>
         </React.Fragment>
     );
 }
