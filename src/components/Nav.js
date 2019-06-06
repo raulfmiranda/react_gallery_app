@@ -1,14 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Nav = (props) => {
+const Nav = ({ fetchCats, fetchDogs, fetchComputers }) => {
 
     return (
         <nav className="main-nav">
             <ul>
-                <li><NavLink to='/cats' onClick={() => props.onSearch('cats')}>Cats</NavLink></li>
-                <li><NavLink to='/dogs' onClick={() => props.onSearch('dogs')}>Dogs</NavLink></li>
-                <li><NavLink to='/computers' onClick={() => props.onSearch('computers')}>Computers</NavLink></li>
+                <li><NavLink to='/' onClick={fetchCats}>Cats</NavLink></li>
+                <li><NavLink to='/' onClick={fetchDogs}>Dogs</NavLink></li>
+                <li><NavLink to='/' onClick={fetchComputers}>Computers</NavLink></li>
             </ul>
         </nav>
     );

@@ -1,10 +1,9 @@
 import React from 'react';
 
-
-const GalleryItem = (props) => {
+const GalleryItem = ({ imgUrl, imgTitle }) => {
     return (
         <li>
-            <img src={props.gif.images.fixed_height.url} alt={props.gif.title} />
+            <img src={imgUrl} alt={imgTitle} />
         </li>
     );
 }

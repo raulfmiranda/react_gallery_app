@@ -1,24 +1,28 @@
-import React from 'react';
+import React, { Component } from 'react';
 import GalleryItem from './GalleryItem';
 import NotFound from './NotFound';
 
-const Gallery = (props) => {
+class Gallery extends Component {
+    
+    renderGifs  = (gif) => {
+        return (<GalleryItem key={gif.id} imgUrl={gif.images.fixed_height.url} imgTitle={gif.title} />);
+    }
 
-    let gifs;
-    if (props.gifs.length) {
-        gifs = props.gifs.map(g => <GalleryItem key={g.id} gif={g}/>);
-     } else {
-        gifs = <NotFound/>
-     }
+    render() {
+        const gifsArr = this.props.gifs.map(this.renderGifs);
 
-    return (
-        <div className="photo-container">
-            <h2>Results</h2>
-            <ul>
-                {gifs}
-            </ul>
-        </div>
-    );
+        return (
+            <div className="photo-container">
+                {
+                    gifsArr.length > 0 ? <h2>Results</h2> : <NotFound/>
+                }
+                <ul>
+                    { this.props.loading && <div>loading</div> }
+                    { !this.props.loading && gifsArr }
+                </ul>
+            </div>
+        );
+    }
 }
 
 export default Gallery;
